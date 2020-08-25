@@ -1,0 +1,13 @@
+*~
+#*
+.antlr
+*.log
+*.aux
+*.out
+*.nav
+*.snm
+*.vrb
+*.toc
+*.class
+*.jar
+*.tokens

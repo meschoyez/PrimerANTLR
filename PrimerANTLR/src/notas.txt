@@ -1,0 +1,33 @@
+Reglas Expresion Regular ANTLR
+
+Selección     -> a | b
+Concatenación -> a b
+Agrupación    -> a (b | c)
+
+Repetición -> *  cero o más veces
+           -> +  una o más veces
+
+Al menos una vez -> ? cero o una vez
+
+Comodín -> . cualquier caracter excepto " "
+
+Selección  -> []
+Secuencia  -> [a-b] -> [-+*/]
+Negación   -> [^a]
+
+-------------------
+
+25Ago
+
+Tarea -> Dado un archivo con formato
+
+    DD/MM/YYYY HH:mm:ss ID
+
+Formato de hora: 24 horas
+
+Definir Expresiones Regulares para encontrar las líneas
+que contienen (al estilo de grep):
+ a- Meses pares
+ b- Dias del mes entre 10 y el 19
+ c- Años entre 1998 y 2008
+ d- Hora entre las 11:30 y las 20:45
