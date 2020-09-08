@@ -31,3 +31,93 @@ que contienen (al estilo de grep):
  b- Dias del mes entre 10 y el 19
  c- Años entre 1998 y 2008
  d- Hora entre las 11:30 y las 20:45
+
+
+-------------
+
+Análisis sintáctico
+
+   -> La árbol vuela -> Artículo Sustantivo Verbo -> Ok(a nivel sintáctico)
+
+
+Análisis sintáctico descendente
+(token == lexema == literal)
+
+Implementa dos acciones:
+ 1- Derivar
+ 2- Match
+
+si : s ; // simbolo inicial
+s : '(' s ')' s
+  |
+  ;
+
+Entrada -> (())()
+
+  Reglas        Entrada  Accion
+ 1 $ si         (())() $ Derivar
+ 2 $ s          (())() $ Derivar
+ 3 $ s ) s (    (())() $ Match
+ 4 $ s ) s       ())() $ Derivar
+ 5 $ s ) s ) s ( ())() $ Match
+ 6 $ s ) s ) s    ))() $ Derivar
+ 7 $ s ) s )      ))() $ Match
+ 8 $ s ) s         )() $ Derivar
+ 9 $ s )           )() $ Match
+10 $ s              () $ Derivar
+11 $ s ) s (        () $ Match
+12 $ s ) s           ) $ Derivar
+13 $ s )             ) $ Match
+14 $ s                 $ Derivar
+15 $                   $ OK
+
+            si
+            |
+            s 
+       /   /  \   \
+       (   s   )   s
+         / /\ \    | \ \ \
+        (  s ) s   (  s ) s
+           |   |      |   |
+           
+
+Entrada -> ())
+
+   Reglas        Entrada  Accion
+ 1 $ si            ()) $ Derivar
+ 2 $ s             ()) $ Derivar
+ 3 $ s ) s (       ()) $ Match
+ 4 $ s ) s          )) $ Derivar
+ 5 $ s )            )) $ Match
+ 6 $ s               ) $ Derivar
+ 7 $                 ) $ ERROR
+
+             si
+            |
+            s 
+       /   /  \   \
+       (   s   )   s
+           |       |      )
+
+
+Entrada -> (()
+
+   Reglas        Entrada  Accion
+ 1 $ si            (() $ Derivar
+ 2 $ s             (() $ Derivar
+ 3 $ s ) s (       (() $ Match
+ 4 $ s ) s          () $ Derivar
+ 5 $ s ) s ) s (    () $ Match
+ 6 $ s ) s ) s       ) $ Derivar
+ 7 $ s ) s )         ) $ Match
+ 8 $ s ) s             $ Derivar
+ 9 $ s )               $ ERROR
+
+
+             si
+            |
+            s 
+       /   /  \   \
+       (   s   )   s
+           |     / /
+                (  s 
