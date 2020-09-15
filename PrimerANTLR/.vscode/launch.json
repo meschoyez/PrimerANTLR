@@ -21,10 +21,12 @@
             "name": "Debug ANTLR4 grammar",
             "type": "antlr-debug",
             "request": "launch",
+            // Archivo con la gramatica
+            "grammar": "src/ExpReg.g4",
             // Archivo a parsear
             "input": "src/entrada.txt",
             // Simbolo inicial
-            "startRule": "s",
+            "startRule": "si",
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true
