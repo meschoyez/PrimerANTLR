@@ -39,6 +39,7 @@ Análisis sintáctico
 
    -> La árbol vuela -> Artículo Sustantivo Verbo -> Ok(a nivel sintáctico)
 
+ParseTree se muestra como texto y sirve de entrada al programa "dot" (graphviz)
 
 Análisis sintáctico descendente
 (token == lexema == literal)
@@ -74,7 +75,7 @@ Entrada -> (())()
             si
             |
             s 
-       /   /  \   \
+        /  /  \   \
        (   s   )   s
          / /\ \    | \ \ \
         (  s ) s   (  s ) s
@@ -122,3 +123,93 @@ Entrada -> (()
            |     / /
                 (  s 
                 
+
+=========================
+
+Análisis sintáctico ascendente
+
+Implementa dos acciones:
+ 1- Desplazar
+ 2- Reducir
+
+si : s ; // simbolo inicial
+s : '(' s ')' s
+  |
+  ;
+
+Entrada -> (())()
+
+   Reglas        Entrada  Accion
+ 1 $            (())() $ Desplazar
+ 2 $ (           ())() $ Desplazar
+ 3 $ ((           ))() $ Reducir
+ 4 $ ( ( s        ))() $ Desplazar
+ 5 $ ( ( s )       )() $ Reducir
+ 6 $ ( ( s ) s     )() $ Reducir
+ 7 $ ( s           )() $ Desplazar
+ 8 $ ( s )          () $ Desplazar
+ 9 $ ( s ) (         ) $ Reducir
+10 $ ( s ) ( s       ) $ Desplazar
+11 $ ( s ) ( s )       $ Reducir
+12 $ ( s ) ( s ) s     $ Reducir
+13 $ ( s ) s           $ Reducir
+14 $ s                 $ Reducir
+15 $ si                $ OK
+
+     si
+     |
+     s________
+    /|  \     \
+   / s   \     s
+  / /|\\  \   /|\\
+ ( ( s ) s ) ( s ) s
+     |         |
+
+
+-----
+
+Entrada -> ())
+
+   Reglas        Entrada  Accion
+ 1 $               ()) $ Desplazar
+ 2 $ (              )) $ Reducir
+ 3 $ ( s            )) $ Desplazar
+ 4 $ ( s )           ) $ Reducir
+ 5 $ ( s ) s         ) $ Reducir
+ 6 $ s               ) $ Reducir
+ 6 $ si              ) $ ERROR
+
+------
+
+Entrada -> (()
+
+   Reglas        Entrada  Accion
+ 1 $               (() $ Desplazar
+ 2 $ (              () $ Desplazar
+ 3 $ ( (             ) $ Reducir
+ 4 $ ( ( s           ) $ Desplazar
+ 5 $ ( ( s )           $ Reducir
+ 6 $ ( ( s ) s         $ Reducir
+ 7 $ ( s               $ Reducir
+ 8 $ ( si              $ ERROR
+
+
+----
+
+Actividad: Reglas gramaticales para una entrada como la siguiente:
+
+int x ;        // 3 tokens
+int y_2 = 43 ; // 5 tokens
+int zyx = x ;  // 5 tokens
+
+Ayuda -> Un programa es una secuencia de instrucciones
+
+simbolo inicial -> programa
+
+programa : instrucciones EOF ;
+
+instrucciones : instruccion instrucciones
+              |
+              ;
+
+instruccion : declaracion ;

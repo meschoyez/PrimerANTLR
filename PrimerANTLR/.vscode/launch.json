@@ -22,7 +22,7 @@
             "type": "antlr-debug",
             "request": "launch",
             // Archivo con la gramatica
-            "grammar": "src/ExpReg.g4",
+            "grammar": "${file}",
             // Archivo a parsear
             "input": "src/entrada.txt",
             // Simbolo inicial
