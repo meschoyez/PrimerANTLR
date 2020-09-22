@@ -213,3 +213,9 @@ instrucciones : instruccion instrucciones
               ;
 
 instruccion : declaracion ;
+
+-------------
+
+Actividad: Construir (intentar) las reglas para las estructuras de control if y for.
+
+Desafío: abordar las operaciones aritmético lógicas

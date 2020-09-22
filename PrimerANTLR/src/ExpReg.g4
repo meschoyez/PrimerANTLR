@@ -6,45 +6,60 @@ fragment LETRA : [a-zA-Z] ;
 
 PA : '(' ;
 PC : ')' ;
-
+LA : '{' ;
+LC : '}' ;
 MAS : '+' ;
-
 BARRA : '/' ;
 DOSPUNTOS : ':' ;
-
-YEAR : ('199'[89])|('200'[0-8]) ;
-HORA : ( '11' DOSPUNTOS [3-5][0-9]
-     | '1'[2-9] DOSPUNTOS [0-5][0-9]
-     | '20' DOSPUNTOS ([0-3][0-9] | '4'[0-5] ) )
-             DOSPUNTOS [0-5][0-9] ;
-
-HORADESCARTE : ([01][0-9]|'2'[0-3]) DOSPUNTOS [0-5][0-9] DOSPUNTOS [0-5][0-9] -> skip ;
+PYC : ';' ;
+COMA : ',' ;
+IGUAL : '=' ;
+COMP : '<' | '>';
+INT : 'int' ;
+DOUBLE : 'double' ;
+CHAR : 'char' ;
+WHILE : 'while' ;
 
 ENTERO : [-+]? DIGITO+ ;
 
-PALABRA : LETRA+ ;
-
-ID : (LETRA | DIGITO) + ;
+ID : (LETRA | '_') (LETRA | DIGITO | '_')* ;
 
 WS : [ \n\t\r] -> skip;
 
-// RAILROAD 
 
-// s : ENTERO { System.out.println( "Linea (ENTERO)" + $ENTERO.getLine() + ": (" +
-//                    $ENTERO.getStartIndex() + ") -> " + $ENTERO.getText() ); } s
-//   | PALABRA { System.out.println( $PALABRA ); } s
-//   | MAS { System.out.println("simbolo mas -> " + $MAS); } s
-//   |
-//   ;
+prog : instrucciones ;
 
-// s : HORA { System.out.println("Encontre hora -> " + $HORA.getLine() + " -> " + $HORA.getText()); } s
-//   | ENTERO BARRA ENTERO BARRA YEAR { System.out.println("Encontre anho -> " + $YEAR.getLine() + " -> " + $YEAR.getText()); } s
-//   | ENTERO BARRA ENTERO BARRA ENTERO s
-//   | ID s
-//   | 
-//   ;
+instrucciones : inst instrucciones
+              |
+              ;
 
-si : s ;
+inst : LA instrucciones LC
+     | declaracion_var
+     | iwhile
+     | asignacion
+     ;
+
+iwhile : WHILE PA comparacion PC ;
+
+declaracion_var : tipodato ID la PYC ;
+
+tipodato : INT
+         | DOUBLE
+         | CHAR
+         ;
+
+asignacion : ID IGUAL ID PYC
+           | ID IGUAL ENTERO PYC ;
+
+comparacion : ID COMP ID
+            | ID COMP ENTERO
+            ;
+
+la : IGUAL ID la
+   | IGUAL ENTERO la
+   | COMA ID la
+   |
+   ;
 
 // Agregar balance llaves y corchetes
 s : PA s PC s

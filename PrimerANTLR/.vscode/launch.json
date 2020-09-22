@@ -26,7 +26,7 @@
             // Archivo a parsear
             "input": "src/entrada.txt",
             // Simbolo inicial
-            "startRule": "si",
+            "startRule": "prog",
             // Muestra Arbol Sintactico
             "printParseTree": true,
             "visualParseTree": true

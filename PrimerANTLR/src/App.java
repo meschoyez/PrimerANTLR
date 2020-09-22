@@ -20,7 +20,7 @@ public class App {
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial
         // parser.s();
-        parser.si();
+        parser.prog();
         
     }
 }

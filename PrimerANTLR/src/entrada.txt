@@ -1,1 +1,24 @@
-(())()
+int x ;
+int y_2 = 4;
+int y_x_2;
+int zyx, xy, wq;
+
+while (x < 3)
+{
+    int x;
+    x = 1;
+}
+
+while (x < 3)
+    x = xs;
+
+if (w == s)
+    d = 5 + 4;
+
+if (w == s) {
+    d = 5 + 4;
+}
+
+for ( f = 0 ; f < r ; f = f + 1) {
+    c = 2 + f;
+}
