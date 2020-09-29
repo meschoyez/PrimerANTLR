@@ -9,7 +9,10 @@ PC : ')' ;
 LA : '{' ;
 LC : '}' ;
 MAS : '+' ;
-BARRA : '/' ;
+MENOS : '-' ;
+MULT : '*' ;
+DIV : '/' ;
+MOD : '%' ;
 DOSPUNTOS : ':' ;
 PYC : ';' ;
 COMA : ',' ;
@@ -39,7 +42,7 @@ inst : LA instrucciones LC
      | asignacion
      ;
 
-iwhile : WHILE PA comparacion PC ;
+iwhile : WHILE PA opal PC ;
 
 declaracion_var : tipodato ID la PYC ;
 
@@ -48,15 +51,32 @@ tipodato : INT
          | CHAR
          ;
 
-asignacion : ID IGUAL ID PYC
-           | ID IGUAL ENTERO PYC ;
+asignacion : ID IGUAL expresion PYC ;
+
+// Agregar reglas de operaciones logicas y comparacion
+//   --> unirlas con "expresion"
+
+expresion : expresion MAS termino
+          | expresion MENOS termino
+          | termino
+          ;
+
+termino : termino MULT factor
+        | termino DIV factor
+        | termino MOD factor
+        | factor
+        ;
+
+factor : PA expresion PC
+       | ID
+       | ENTERO
+       ;
 
 comparacion : ID COMP ID
             | ID COMP ENTERO
             ;
 
-la : IGUAL ID la
-   | IGUAL ENTERO la
+la : IGUAL expresion la
    | COMA ID la
    |
    ;

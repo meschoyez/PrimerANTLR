@@ -1,7 +1,7 @@
 int x ;
-int y_2 = 4;
-int y_x_2;
-int zyx, xy, wq;
+int y_2 = x / 4 + x ;
+int y_x_2 = 45;
+int zyx, xy, wq = x;
 
 while (x < 3)
 {
@@ -10,15 +10,5 @@ while (x < 3)
 }
 
 while (x < 3)
-    x = xs;
+    x = xs + 5 + y - 8;
 
-if (w == s)
-    d = 5 + 4;
-
-if (w == s) {
-    d = 5 + 4;
-}
-
-for ( f = 0 ; f < r ; f = f + 1) {
-    c = 2 + f;
-}
