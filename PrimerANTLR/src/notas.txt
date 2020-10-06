@@ -219,3 +219,31 @@ instruccion : declaracion ;
 Actividad: Construir (intentar) las reglas para las estructuras de control if y for.
 
 Desafío: abordar las operaciones aritmético lógicas
+
+-------------
+
+Tabla de símbolos
+
+Recolectar ID usados en el código fuente
+   |--> Diccionario --> Map
+
+Acciones a implementar:
+ - Agregar ID
+ - Buscar ID
+
+Valores asociados a un ID:
+ - Tipo variable (o constante)
+  + ID 
+  + tipo dato (int, char, double, void)
+  + usada
+  + inicializada
+
+ - Tipo función
+  + ID 
+  + tipo dato devuelto (int, char, double, void)
+  + usada
+  + inicializada
+  + argumentos
+
+
+Actividad: Implementar la tabla de símbolos
