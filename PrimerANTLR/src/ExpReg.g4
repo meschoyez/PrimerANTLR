@@ -36,13 +36,15 @@ instrucciones : inst instrucciones
               |
               ;
 
-inst : LA instrucciones LC
+inst : bloque
      | declaracion_var
-     | iwhile
+//      | iwhile
      | asignacion
      ;
 
-iwhile : WHILE PA opal PC ;
+bloque : LA instrucciones LC ;
+
+// iwhile : WHILE PA opal PC ;
 
 declaracion_var : tipodato ID la PYC ;
 

@@ -1,3 +1,4 @@
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -17,10 +18,19 @@ public class App {
         // create a parser that feeds off the tokens buffer
         ExpRegParser parser = new ExpRegParser(tokens);
                 
+        // create Listener
+        ExpRegBaseListener escucha = new Escucha();
+
+        // Conecto el objeto con Listeners al parser
+        parser.addParseListener(escucha);
+
         // Solicito al parser que comience indicando una regla gramatical
         // En este caso la regla es el simbolo inicial
         // parser.s();
-        parser.prog();
+        ParseTree tree =  parser.prog();
+        // Imprime el arbol obtenido
+        System.out.println(tree.toStringTree(parser));
+        // System.out.println(escucha);
         
     }
 }
