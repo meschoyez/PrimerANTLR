@@ -52,14 +52,14 @@ public class Escucha extends ExpRegBaseListener {
     public void enterBloque(ExpRegParser.BloqueContext ctx) {
         // TODO Auto-generated method stub
         // super.enterBloque(ctx);
-        tablaSimbolos.addContexto();
+        // tablaSimbolos.addContexto();
     }
 
     @Override
     public void exitBloque(ExpRegParser.BloqueContext ctx) {
         // TODO Auto-generated method stub
         // super.exitBloque(ctx);
-        tablaSimbolos.delContexto();
+        // tablaSimbolos.delContexto();
     }
 
 }
