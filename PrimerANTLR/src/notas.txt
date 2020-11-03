@@ -247,3 +247,174 @@ Valores asociados a un ID:
 
 
 Actividad: Implementar la tabla de símbolos
+
+----------------------------
+03 noviembre
+
+Codigo Intermedio (independiente del HW)
+
+Código de direcciones --> representar el programa en un lenguaje simple
+                          en el cual se utilizan _hasta_ 3 direcciones de 
+                          memoria
+
+  Formato base es --> x = y op z
+
+  Ejemplos:
+           x = y + z
+           x = y - 6
+           x = 8
+
+Definir etiquetas --> lbl e1
+Saltos a instrucciones --> jmp e1
+
+Necesito:
+ - Generador de variables temporales -> t<nro>
+ - Generador de etiquetas -> e<nro>
+
+Para implementar funciones, utilizamos el stach accediendo mediante push y pop.
+
+Ejemplos de traducción:
+
+(1)
+<<entrada>>
+int x = 0;
+int y = 5;
+
+x = y / 5 + y * 10;
+
+<<tac>>
+x = 0
+y = 5
+t0 = y / 5
+t1 = y * 10
+t2 = t0 + t1
+x = t2
+
+(2)
+<<entrada>>
+if (x > 0)
+  y = z * 9 - f;
+else
+  y = z * 9 + g;
+
+<<tac>>
+t0 = x > 0
+beqz t0 to e0
+t1 = z * 9
+t2 = t1 - f
+y = t2
+jmp e1
+lbl e0
+t3 = z * 9
+t4 = t3 + g
+y = t4
+lbl e1
+
+(3)
+<<entrada>>
+for (x = 0; x < 10; x++)
+  y = z * x;
+
+<<tac>>
+x = 0
+lbl e0
+t0 = x < 10
+beqz t0 to e1
+y = z * x
+x = x + 1
+jmp e0
+lbl e1
+
+
+(4)
+<<entrada>>
+int calcular (int x, int y) {
+  return x + y;
+}
+...
+  z = calcular(x, y);
+
+<<tac>>
+lbl e0
+pop e1
+pop y
+pop x
+t0 = x + y
+push t0
+jmp e1
+
+...
+
+push x
+push y
+push e2
+jmp e0
+lbl e2
+pop z
+
+------
+
+Optimizaciones simples independientes del HW
+ - Propagacion de constantes
+ - Quitar variables innecesarias
+
+<<tac>>
+x = 0
+y = 5
+t0 = y / 5
+t1 = y * 10
+t2 = t0 + t1
+x = t2
+
+<<tac_1>>
+x = 0
+y = 5
+t0 = 5 / 5
+t1 = 5 * 10
+x = t0 + t1
+
+<<tac_2>>
+x = 0
+y = 5
+t0 = 1
+t1 = 50
+x = t0 + t1
+
+<<tac_3>>
+x = 0
+y = 5
+x = 1 + 50
+
+<<tac_4>>
+x = 0
+y = 5
+x = 51
+
+<<tac_5>>
+x = 51
+y = 5
+
+Otro ejemplo
+<<tac>>
+t0 = x > 0
+beqz t0 to e0
+t1 = z * 9
+t2 = t1 - f
+y = t2
+jmp e1
+lbl e0
+t3 = z * 9
+t4 = t3 + g
+y = t4
+lbl e1
+
+<<tac_1>>
+t0 = x > 0
+t1 = z * 9
+beqz t0 to e0
+y = t1 - f
+jmp e1
+lbl e0
+y = t1 + g
+lbl e1
+
